@@ -1,36 +1,39 @@
+#include "Utilities.h"
+#include "Cipher.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include "Utilities.h"
+#include<ctype.h>
 int main(int argc, char* argv[]){
     char mode;
     char* key = (char*)malloc(100*sizeof(char));
-    char* plain_text = (char*)malloc(100*sizeof(char));
+    char* message = (char*)malloc(100*sizeof(char));
 
+    // read mode
     scanf("%c",&mode);
-    fpurge(stdin);
-
-    scanf("%[^\n]s",plain_text);
-    fpurge(stdin);
-
+    getchar();
+    if(mode != toupper('c') && mode != toupper('d'))
+        exit(EXIT_FAILURE);
+    //read plain text
+    scanf("%[^\n]s",message);
+    getchar();
+    // read key
     scanf("%[^\n]s",key);
-    fpurge(stdin);
+    getchar();
 
+
+    // string -> matrix
     int** key_matrix = matrixKey(key);
-    int** plain_text_matrix = matrixMessage(plain_text,key);
+    int** message_matrix = matrixMessage(message,key);
     
-    int dim_key = dimMatrix((double)strlen(key));
-    // discover number of matrix's
-    int num_matrix = numMatrix((double)strlen(plain_text),dim_key);
-    for(int i=0; i<num_matrix; i++){
-        for(int j=0; j<dim_key; j++){
-            printf("%d |",plain_text_matrix[i][j]);
-        }
-        printf("\n");
+    
+    // encrypt or decrypt
+    if(mode != toupper('D')){
+        encrypt(key_matrix,key,message_matrix,message);
+    }else{
+        decrypt(key_matrix,key,message_matrix,message);
     }
-    cipher(key_matrix,key,plain_text_matrix,plain_text);
-
     free(key);
-    free(plain_text);
-
+    free(message);
+    exit(EXIT_SUCCESS);
 }

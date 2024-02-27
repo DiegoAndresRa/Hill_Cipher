@@ -1,0 +1,3 @@
+#!/bin/sh
+gcc -o program Utilities.c Cipher.c Hill_Cipher.c -lm
+./program
