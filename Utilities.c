@@ -12,8 +12,9 @@ int modN (int num){
     return num;
 }
 // Ascci numeration -> numeration [0-25]
-int numReassignment(int ascciNum){
-    return (-65 + ascciNum);
+int numReassignment(int ascciNum,int mode){
+    if(mode == 1){return (-65 + ascciNum);}
+    else{return(65+ascciNum);}
 }
 
 int dimMatrix(double dimension){
@@ -37,7 +38,7 @@ int** matrixKey(char* key_stream){
     int index = 0;
     for(int i = 0; i<dim ; i++){
         for(int j=0; j<dim ; j++){
-            key[i][j] = numReassignment(toupper(key_stream[index]));
+            key[i][j] = numReassignment(toupper(key_stream[index]),1);
             index++;
         }
     }
@@ -67,12 +68,47 @@ int** matrixMessage(char* plain_text,char* key){
     for(int i=0; i<num_matrix; i++){
         for(int j=0; j<dim_key; j++){
             if(index != strlen(plain_text)){
-                message[i][j] = numReassignment(toupper(plain_text[index]));
+                message[i][j] = numReassignment(toupper(plain_text[index]),1);
                 index++;
             }else{
-                message[i][j] = numReassignment('X');
+                message[i][j] = numReassignment('X',1);
             }
         }
     }
     return message;
+}
+void cipher(int** key_matrix,char* key, int** plain_text_matrix, char* plain_text){
+    // discover dimension
+    int dim_key = dimMatrix((double)strlen(key)); 
+    // discover number of matrix's
+    int num_matrix = numMatrix((double)strlen(plain_text),dim_key);
+    // multiplie
+    int index_matrixs = 0;
+    multiply(key_matrix,plain_text_matrix,index_matrixs,dim_key,num_matrix);
+
+    for(int i=0; i<num_matrix; i++){
+        for(int j=0; j<dim_key; j++){
+            printf("%c ",plain_text_matrix[i][j]);
+        }
+    }
+}
+
+void multiply(int** key, int** plain_text,int matrix,int dim_key,int num_matrix){
+    int result;
+    int* compy_n_matrix = (int*)malloc(dim_key*sizeof(int));
+    // copy the vector to save the multiplication in the same vector
+    for(int j=0; j<dim_key; j++)
+        compy_n_matrix[j]  = plain_text[matrix][j];
+    // multiply
+    for(int i=0; i<dim_key; i++){
+        result = 0; 
+        for(int j=0; j<dim_key; j++)
+            result += key[j][i]*compy_n_matrix[j];
+        plain_text[matrix][i] = numReassignment(modN(result),0);
+    }
+
+    matrix++;
+    free(compy_n_matrix);
+    if(matrix < num_matrix)
+        multiply(key,plain_text,matrix,dim_key,num_matrix);
 }
