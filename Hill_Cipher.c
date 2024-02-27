@@ -1,3 +1,14 @@
+/*
+    2X2 KEY MATRIX HILL ENCRYPTION
+
+    ————————————————————————————————————————
+    Input: mode{C,D}, message{nxn}, key{2x2}
+    ————————————————————————————————————————
+    Output: text cipher or plain text
+    ————————————————————————————————————————
+
+    Author: Ramirez Garcia Diego Andres
+*/
 #include "Utilities.h"
 #include "Cipher.h"
 #include<stdio.h>
@@ -24,14 +35,14 @@ int main(int argc, char* argv[]){
 
     // string -> matrix
     int** key_matrix = matrixKey(key);
-    int** message_matrix = matrixMessage(message,key);
+    int** message_matrix = matrixMessage(message);
     
     
     // encrypt or decrypt
     if(mode != toupper('D')){
-        encrypt(key_matrix,key,message_matrix,message);
+        encrypt(key_matrix,message_matrix,message);
     }else{
-        decrypt(key_matrix,key,message_matrix,message);
+        decrypt(key_matrix,message_matrix,message);
     }
     free(key);
     free(message);
