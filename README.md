@@ -1,5 +1,9 @@
-# Hill Cipher in C
-
+<h1 align='center'>Hill Cipher in C</h1>
+<div align='center'>
+Developed in <img src="https://github.com/devicons/devicon/blob/master/icons/c/c-plain.svg" title="C" alt="C" width="20" height="20"/>
+  by <a href='https://github.com/DiegoAndresRa'>@DiegoAndresRa</a> 
+</div>
+<br>
 This is an implementation of the Hill Cipher in the C programming language. The Hill Cipher is a polyalphabetic substitution cipher that uses matrices to encrypt and decrypt messages.
 
 ## Features
@@ -8,7 +12,9 @@ This is an implementation of the Hill Cipher in the C programming language. The 
 - **Implemented in C:** The code is written in C, allowing for fast and efficient execution.
 - **Simple Interface:** It offers a simple and easy-to-use command-line interface for encrypting and decrypting messages.
 
-## Usage
+<br>
+
+## Run Locally
 
 1. **Compilation:** Compile the program using a compatible C compiler.
     ```bash
@@ -30,15 +36,15 @@ This is an implementation of the Hill Cipher in the C programming language. The 
     ./run
     D
     ```
-
 ## Requirements
 
 - Compatible C compiler (such as GCC)
 - Operating system compatible with C
 
-## Contributions
+<h2>Related</h2>
+<a href='https://github.com/DiegoAndresRa/RC4-with-C'>RC4 Cipher</a>
 
-Contributions are welcome. If you find a bug or have any improvement, feel free to open an issue or send a pull request.
+<br>
 
 ## License
 
